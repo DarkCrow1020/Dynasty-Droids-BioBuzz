@@ -25,8 +25,8 @@ public class DynastyTeleOpRed extends OpMode {
                 gamepad1.left_stick_x,
                 gamepad1.right_stick_x
         );
-        Rt= gamepad1.right_trigger>0.1;
-        if(gamepad1.right_trigger<0.7 && !Rt){
+        Rt= gamepad1.right_trigger<0.1;
+        if(gamepad1.right_trigger>0.7 && !Rt){
             intake.IntakeStart();
         }else{intake.IntakeStop();}
 

@@ -12,6 +12,6 @@ public class Intake {
     }
 
     public void IntakeStart(){Intake1.setPower(1);}
-    public void IntakeStop(){Intake2.setPower(0);}
+    public void IntakeStop(){Intake1.setPower(0);}
 
 }
