@@ -10,4 +10,8 @@ public class Intake {
         Intake1=hardwareMap.get(DcMotor.class , "intakeM1");
         Intake2=hardwareMap.get(DcMotor.class, "intakeM2");
     }
+
+    public void IntakeStart(){Intake1.setPower(1);}
+    public void IntakeStop(){Intake2.setPower(0);}
+
 }
