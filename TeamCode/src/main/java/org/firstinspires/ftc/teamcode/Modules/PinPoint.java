@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Modules;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class PinPoint {
@@ -18,4 +19,8 @@ public class PinPoint {
         x= pinpoint.getPosX(DistanceUnit.MM);
         y= pinpoint.getPosY(DistanceUnit.MM);
     }
+    public void Update(){pinpoint.update();}
+    public double GetX(){return pinpoint.getPosX(DistanceUnit.MM);}
+    public double GetY(){return  pinpoint.getPosY(DistanceUnit.MM);}
+    public double GetHeading(){return pinpoint.getHeading(AngleUnit.DEGREES);}
 }

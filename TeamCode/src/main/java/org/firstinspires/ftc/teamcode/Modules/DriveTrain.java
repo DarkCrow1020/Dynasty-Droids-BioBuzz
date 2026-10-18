@@ -9,18 +9,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 public class DriveTrain {
     private DcMotor fl, fr, bl, br;
-    GoBildaPinpointDriver pinpoint;
-
-    static double x,y;
-
-
+    private PinPoint pinPoint;
+    double targetAngle = 90;
     public DriveTrain(HardwareMap hardwareMap) {
         fl = hardwareMap.get(DcMotor.class, "frontLeft");
         fr = hardwareMap.get(DcMotor.class, "frontRight");
         bl = hardwareMap.get(DcMotor.class, "backLeft");
         br = hardwareMap.get(DcMotor.class, "backRight");
-        pinpoint=hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
-
+        pinPoint= new PinPoint(hardwareMap);
         fl.setDirection(DcMotor.Direction.REVERSE);
         fr.setDirection(DcMotor.Direction.FORWARD);
         bl.setDirection(DcMotor.Direction.REVERSE);
@@ -47,6 +43,24 @@ public class DriveTrain {
         fr.setPower(frp);
         bl.setPower(blp);
         br.setPower(brp);
+    }
+    public void aimBasket (double AngleNeeded){
+        double heading = pinPoint.GetHeading(); // IMU heading
+        double error = targetAngle - heading;
+
+
+        while (error > 180) error -= 360;
+        while (error < -180) error += 360;
+
+        double turnPower = error * 0.01;
+
+        turnPower = Math.max(-0.4, Math.min(0.4, turnPower));
+
+        drive(0, 0, turnPower);
+
+        if (Math.abs(error) < 2) {
+            drive(0, 0, 0);
+        }
     }
 
 

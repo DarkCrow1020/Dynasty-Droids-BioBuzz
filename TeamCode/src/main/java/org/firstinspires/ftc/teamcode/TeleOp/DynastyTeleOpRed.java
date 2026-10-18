@@ -5,17 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.Modules.Intake;
+import org.firstinspires.ftc.teamcode.Modules.PinPoint;
 
 
 @TeleOp(name = "DynastyTeleOpRed", group = "TeleOp")
 public class DynastyTeleOpRed extends OpMode {
     private DriveTrain drive;
     private Intake intake;
+    private PinPoint pinPoint;
     boolean Rt=false;
     @Override
     public void init() {
         drive = new DriveTrain(hardwareMap);
         intake= new Intake(hardwareMap);
+        pinPoint=new PinPoint(hardwareMap);
     }
 
     @Override
@@ -29,6 +32,10 @@ public class DynastyTeleOpRed extends OpMode {
         if(gamepad1.right_trigger>0.7 && !Rt){
             intake.IntakeStart();
         }else{intake.IntakeStop();}
+        pinPoint.Update();
+        pinPoint.GetHeading();
+        pinPoint.GetX();
+        pinPoint.GetY();
 
     }
 }
