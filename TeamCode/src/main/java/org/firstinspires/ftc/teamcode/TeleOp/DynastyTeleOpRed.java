@@ -32,6 +32,9 @@ public class DynastyTeleOpRed extends OpMode {
         if(gamepad1.right_trigger>0.7 && !Rt){
             intake.IntakeStart();
         }else{intake.IntakeStop();}
+        if(gamepad1.rightBumperWasPressed()){
+            drive.aimBasket(90);
+        }
         pinPoint.Update();
         pinPoint.GetHeading();
         pinPoint.GetX();

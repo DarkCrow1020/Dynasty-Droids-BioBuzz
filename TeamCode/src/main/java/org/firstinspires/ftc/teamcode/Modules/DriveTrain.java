@@ -21,9 +21,6 @@ public class DriveTrain {
         fr.setDirection(DcMotor.Direction.FORWARD);
         bl.setDirection(DcMotor.Direction.REVERSE);
         br.setDirection(DcMotor.Direction.FORWARD);
-
-
-
     }
 
     public void drive(double forward, double strafe, double rotate) {
@@ -38,26 +35,20 @@ public class DriveTrain {
         if (max > 1.0) {
             flp /= max; frp /= max; blp /= max; brp /= max;
         }
-
         fl.setPower(flp);
         fr.setPower(frp);
         bl.setPower(blp);
         br.setPower(brp);
     }
     public void aimBasket (double AngleNeeded){
-        double heading = pinPoint.GetHeading(); // IMU heading
+        AngleNeeded=90;  // schimba sa fie ajustabil
+        double heading = pinPoint.GetHeading();
         double error = targetAngle - heading;
-
-
         while (error > 180) error -= 360;
         while (error < -180) error += 360;
-
         double turnPower = error * 0.01;
-
-        turnPower = Math.max(-0.4, Math.min(0.4, turnPower));
-
+        turnPower = Math.max(-0.4, Math.min(0.4, turnPower)); // schimb viteza de rotire
         drive(0, 0, turnPower);
-
         if (Math.abs(error) < 2) {
             drive(0, 0, 0);
         }
