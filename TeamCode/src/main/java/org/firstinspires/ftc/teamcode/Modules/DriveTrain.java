@@ -21,6 +21,9 @@ public class DriveTrain {
         fr.setDirection(DcMotor.Direction.FORWARD);
         bl.setDirection(DcMotor.Direction.REVERSE);
         br.setDirection(DcMotor.Direction.FORWARD);
+
+
+
     }
 
     public void drive(double forward, double strafe, double rotate) {
@@ -35,19 +38,33 @@ public class DriveTrain {
         if (max > 1.0) {
             flp /= max; frp /= max; blp /= max; brp /= max;
         }
+
         fl.setPower(flp);
         fr.setPower(frp);
         bl.setPower(blp);
         br.setPower(brp);
     }
-    public void aimBasket (double AngleNeeded){
-        AngleNeeded=90;  // schimba sa fie ajustabil
+    public double AngleUpdate (){
+        double x= pinPoint.GetX(), y=pinPoint.GetY();
+        double xBasketRedFront=15,yBasketRedFront=15,xBasketRedBack=15,yBasketRedBack=-15;
+        double Lenght,Width;
+        double angleNeeded;
+        if(y<0){
+            Lenght = yBasketRedFront - y; Width  = xBasketRedFront - x;
+        }else {
+            Lenght = yBasketRedBack - y;Width  = xBasketRedBack - x;
+        }
+        angleNeeded = Math.toDegrees(Math.atan2(Lenght, Width));
+        return angleNeeded;
+    }
+    public void aimBasket (double targetAngle){
+        targetAngle=AngleUpdate();
         double heading = pinPoint.GetHeading();
         double error = targetAngle - heading;
         while (error > 180) error -= 360;
         while (error < -180) error += 360;
         double turnPower = error * 0.01;
-        turnPower = Math.max(-0.4, Math.min(0.4, turnPower)); // schimb viteza de rotire
+        turnPower = Math.max(-0.6, Math.min(0.6, turnPower));
         drive(0, 0, turnPower);
         if (Math.abs(error) < 2) {
             drive(0, 0, 0);

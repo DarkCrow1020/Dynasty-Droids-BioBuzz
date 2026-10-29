@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 public class PinPoint {
     GoBildaPinpointDriver pinpoint;
@@ -16,11 +17,21 @@ public class PinPoint {
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         pinpoint.resetPosAndIMU();
-        x= pinpoint.getPosX(DistanceUnit.MM);
-        y= pinpoint.getPosY(DistanceUnit.MM);
+        x= pinpoint.getPosX(DistanceUnit.INCH);
+        y= pinpoint.getPosY(DistanceUnit.INCH);
     }
     public void Update(){pinpoint.update();}
-    public double GetX(){return pinpoint.getPosX(DistanceUnit.MM);}
-    public double GetY(){return  pinpoint.getPosY(DistanceUnit.MM);}
+    public double GetX(){return pinpoint.getPosX(DistanceUnit.INCH);}
+    public double GetY(){return  pinpoint.getPosY(DistanceUnit.INCH);}
     public double GetHeading(){return pinpoint.getHeading(AngleUnit.DEGREES);}
+    public void SetPose(double x, double y, double heading) {
+        pinpoint.setPosition(
+                new Pose2D(
+                        DistanceUnit.INCH,
+                        x,
+                        y,
+                        AngleUnit.DEGREES,
+                        heading ) );}
 }
+
+
