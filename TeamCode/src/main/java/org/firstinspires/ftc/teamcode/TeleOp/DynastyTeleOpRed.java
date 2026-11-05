@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.Modules.Intake;
 import org.firstinspires.ftc.teamcode.Modules.PinPoint;
-import com.pedropathing.revhub.localizers.PinpointConfig;
+
 
 
 @TeleOp(name = "DynastyTeleOpRed", group = "TeleOp")
@@ -38,7 +38,7 @@ public class DynastyTeleOpRed extends OpMode {
             drive.aimBasket(drive.AngleUpdate());
         }
         if(gamepad1.y){
-            pinPoint.SetPose(-62.0,-62.0,90.0);
+            pinPoint.SetPose(10.0,10.0,0.0);
         }
         pinPoint.Update();
         pinPoint.GetHeading();
@@ -52,3 +52,4 @@ public class DynastyTeleOpRed extends OpMode {
         telemetry.update();
     }
 }
+

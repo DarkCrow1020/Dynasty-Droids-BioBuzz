@@ -46,7 +46,7 @@ public class DriveTrain {
     }
     public double AngleUpdate (){
         double x= pinPoint.GetX(), y=pinPoint.GetY();
-        double xBasketRedFront=15,yBasketRedFront=15,xBasketRedBack=15,yBasketRedBack=-15;
+        double xBasketRedFront=56,yBasketRedFront=56,xBasketRedBack=56,yBasketRedBack=85;
         double Lenght,Width;
         double angleNeeded;
         if(y<0){
