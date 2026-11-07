@@ -7,12 +7,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.Modules.Intake;
+import org.firstinspires.ftc.teamcode.Modules.PinPoint;
 
 
 @TeleOp(name = "DynastyTeleOpBlue", group = "TeleOp")
 public class DynastyTeleOpBlue extends OpMode {
     private DriveTrain drive;
     private Intake intake;
+    private PinPoint pinPoint;
 
 
     boolean Rt=false;
@@ -20,6 +22,7 @@ public class DynastyTeleOpBlue extends OpMode {
     public void init() {
         drive = new DriveTrain(hardwareMap);
         intake= new Intake(hardwareMap);
+
     }
 
     @Override
@@ -33,6 +36,22 @@ public class DynastyTeleOpBlue extends OpMode {
         if(gamepad1.right_trigger>0.7 && !Rt){
             intake.IntakeStart();
         }else{intake.IntakeStop();}
-
+        if(gamepad1.x){
+            drive.aimBasket(drive.AngleUpdate());
+        }
+        if(gamepad1.y){
+            pinPoint.SetPose(10.0,10.0,0.0);
+        }
+        pinPoint.Update();
+        pinPoint.GetHeading();
+        pinPoint.GetX();
+        pinPoint.GetY();
+        drive.AngleUpdate();
+        drive.setAllience(false);
+        telemetry.addData("Robot X", pinPoint.GetX());
+        telemetry.addData("Robot Y", pinPoint.GetY());
+        telemetry.addData("Heading", pinPoint.GetHeading());
+        telemetry.addData("Target Angle", drive.AngleUpdate());
+        telemetry.update();
     }
 }

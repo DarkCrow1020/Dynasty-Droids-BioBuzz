@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Modules;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -11,6 +12,8 @@ public class DriveTrain {
     private DcMotor fl, fr, bl, br;
     private PinPoint pinPoint;
     double targetAngle = 90;
+    private boolean RedOrBlue;
+
     public DriveTrain(HardwareMap hardwareMap) {
         fl = hardwareMap.get(DcMotor.class, "frontLeft");
         fr = hardwareMap.get(DcMotor.class, "frontRight");
@@ -21,9 +24,6 @@ public class DriveTrain {
         fr.setDirection(DcMotor.Direction.FORWARD);
         bl.setDirection(DcMotor.Direction.REVERSE);
         br.setDirection(DcMotor.Direction.FORWARD);
-
-
-
     }
 
     public void drive(double forward, double strafe, double rotate) {
@@ -44,17 +44,28 @@ public class DriveTrain {
         bl.setPower(blp);
         br.setPower(brp);
     }
+    public void setAllience(boolean RedOrBlue){
+        this.RedOrBlue = RedOrBlue;
+    }
     public double AngleUpdate (){
         double x= pinPoint.GetX(), y=pinPoint.GetY();
-        double xBasketRedFront=56,yBasketRedFront=56,xBasketRedBack=56,yBasketRedBack=85;
+        double xBasketRedFront=56,yBasketRedFront=56,xBasketRedBack=56,yBasketRedBack=85,xBasketBlueBack=85,yBasketBlueBack=90,xBasketBlueFront=85 ,yBasketBlueFront=52;
         double Lenght,Width;
-        double angleNeeded;
-        if(y<0){
-            Lenght = yBasketRedFront - y; Width  = xBasketRedFront - x;
-        }else {
-            Lenght = yBasketRedBack - y;Width  = xBasketRedBack - x;
-        }
-        angleNeeded = Math.toDegrees(Math.atan2(Lenght, Width));
+        double angleNeeded = 0;
+        if(RedOrBlue==false){
+            if(y<72){
+                Lenght = yBasketBlueFront - y; Width  = xBasketBlueFront - x;
+            }else {
+                Lenght = yBasketBlueBack - y;Width  = xBasketBlueBack - x;
+            }
+            angleNeeded = Math.toDegrees(Math.atan2(Lenght, Width));}
+        if(RedOrBlue==true){
+            if(y<72){
+                Lenght = yBasketRedFront - y; Width  = xBasketRedFront - x;
+            }else {
+                Lenght = yBasketRedBack - y;Width  = xBasketRedBack - x;
+            }
+            angleNeeded = Math.toDegrees(Math.atan2(Lenght, Width));}
         return angleNeeded;
     }
     public void aimBasket (double targetAngle){

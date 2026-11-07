@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.Modules.Intake;
 import org.firstinspires.ftc.teamcode.Modules.PinPoint;
 
 
-
 @TeleOp(name = "DynastyTeleOpRed", group = "TeleOp")
 public class DynastyTeleOpRed extends OpMode {
     private DriveTrain drive;
@@ -45,6 +44,7 @@ public class DynastyTeleOpRed extends OpMode {
         pinPoint.GetX();
         pinPoint.GetY();
         drive.AngleUpdate();
+        drive.setAllience(true);
         telemetry.addData("Robot X", pinPoint.GetX());
         telemetry.addData("Robot Y", pinPoint.GetY());
         telemetry.addData("Heading", pinPoint.GetHeading());
