@@ -22,6 +22,7 @@ public class DynastyTeleOpBlue extends OpMode {
     public void init() {
         drive = new DriveTrain(hardwareMap);
         intake= new Intake(hardwareMap);
+        pinPoint=new PinPoint(hardwareMap);
 
     }
 
